@@ -1,0 +1,14 @@
+# Baseline threshold model configuration
+
+model:
+  name: threshold_nowcaster
+  threshold: 3.0
+  baseline_window: 60
+
+data:
+  path: "data/raw/sample_event.h5"
+  window_size: 512
+  stride: 128
+
+evaluation:
+  metrics: ["accuracy", "f1_macro", "precision_macro", "recall_macro"]
