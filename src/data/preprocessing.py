@@ -3,7 +3,11 @@
 from typing import Optional, Tuple
 
 import numpy as np
-from scipy import ndimage, signal
+
+try:
+    from scipy import ndimage
+except ImportError:  # pragma: no cover - fallback for minimal environments
+    ndimage = None
 
 
 def normalize_flux(
@@ -68,7 +72,20 @@ def apply_gaussian_filter(
     Returns:
         Smoothed flux array.
     """
-    return ndimage.gaussian_filter1d(flux, sigma=sigma, axis=0)
+    if ndimage is not None:
+        return ndimage.gaussian_filter1d(flux, sigma=sigma, axis=0)
+
+    # Lightweight fallback when scipy is unavailable. This is not a true
+    # Gaussian, but preserves the preprocessing contract for smoke tests and
+    # minimal runtime environments.
+    radius = max(1, int(round(2 * sigma)))
+    kernel = np.ones(2 * radius + 1, dtype=float)
+    kernel /= kernel.sum()
+    padded = np.pad(flux, ((radius, radius), (0, 0)), mode="edge")
+    smoothed = np.empty_like(flux, dtype=float)
+    for col in range(flux.shape[1]):
+        smoothed[:, col] = np.convolve(padded[:, col], kernel, mode="valid")
+    return smoothed
 
 
 def preprocess_lightcurves(
