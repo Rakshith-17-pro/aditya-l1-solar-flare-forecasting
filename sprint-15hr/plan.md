@@ -1,111 +1,162 @@
-# SPRINT PLAN — Aditya-L1 Solar Flares (15-Hour Edition)
+# ADITYA-L1 SOLAR FLARES — 15 HOUR BUILD PLAN
 
-> **"Solar Intelligence in Motion"**
-> Compressed from the 18-day vision in `plan-18day/plan.md`. This file keeps the creative north star while scoping only what we build today.
+> **Solar Intelligence in Motion**
+> A cinematic, motion-first scientific storytelling frontend for Aditya-L1.
 
 ---
 
-## 1. EXECUTIVE VISION (Unchanged from 18-day)
+## 1. EXECUTIVE VISION
 
-Build a **high-end, motion-first, visually immersive scientific storytelling frontend** for the Aditya-L1 mission and solar flare topic that carries the **visual confidence of animejs.com** fused with the **gravitas of ISRO's space-science identity**.
+Build a **premium, visually immersive, motion-first frontend** for the Aditya-L1 mission and solar flare topic that feels bold, technical, and cinematic.
 
 ### What This Is
 
-| ❌ Not This | ✅ This Is (15h scope) |
-|------------|----------------------|
-| A full 9-section site | A **5-section cinematic landing page** |
-| A data dashboard with live telemetry | A **scroll-driven narrative demo** |
-| A comprehensive gallery | A focused **educational experience** with hero + scroll story |
-| Anime.js + Motion dual engine | **Motion for React only** — faster to build |
+| Not This | This Is |
+|----------|---------|
+| A generic landing page | A premium scientific microsite |
+| A static educational page | A motion-led storytelling experience |
+| A cluttered dashboard | A focused, cinematic landing experience |
+| Random visual effects | Motion with purpose |
 
 ---
 
-## 2. CREATIVE THESIS (Unchanged)
+## 2. CREATIVE DIRECTION
 
-| animejs.com Quality | → Aditya-L1 Translation |
-|---------------------|------------------------|
-| Massive visual confidence | Premium dark UI with solar-energy-driven identity |
-| Dark premium layout | Deep space black + plasma accents |
-| Strong typography hierarchy | Bold display type + technical UI type |
-| Section choreography | Scroll-driven scene sequencing |
-| Motion as structure, not decoration | Motion explains content hierarchy |
-| Interactive polish | Engineered hover states, not random floaters |
+### Visual Personality
+
+| Trait | Manifestation |
+|-------|---------------|
+| Confident | Large typography, uncluttered composition |
+| Precise | Clean grid, controlled motion, disciplined color |
+| Scientific | Monospace data accents, technical UI language |
+| Visionary | Deep-space atmosphere, solar glow, cinematic pacing |
 
 ### Emotional Palette
 
 ```
 PRECISION ────────────────────────────── WONDER
       ↑                                    ↑
-  ISRO engineering          Solar phenomenon
-  Clean UI                  Cinematic awe
-  Technical credibility     Visual immersion
+  Engineering clarity             Solar-scale awe
+  Credibility                     Visual immersion
+```
+
+The experience should feel like **engineered wonder**.
+
+---
+
+## 3. COLOR SYSTEM
+
+### Base palette
+
+```text
+Deep Black:      #05070B
+Space Navy:      #0A1020
+Charcoal:        #111827
+```
+
+### Solar palette
+
+```text
+Plasma Orange:   #FF7A00
+Flare Gold:      #FFB347
+Eruption Red:    #FF4D36
+Corona Amber:    #FFC857
+```
+
+### Scientific accents
+
+```text
+Instrument Cyan: #55D6FF
+Telemetry Blue:  #4EA8DE
+Signal Violet:   #8B5CF6
+```
+
+### Usage ratio
+
+- Base neutrals: **80%**
+- Solar tones: **15%**
+- Cool scientific accents: **5%**
+
+---
+
+## 4. TYPOGRAPHY SYSTEM
+
+| Role | Font | Usage |
+|------|------|-------|
+| Display | **Space Grotesk** | Hero and section headings |
+| Body | **Inter** | Paragraphs and UI |
+| Mono | **JetBrains Mono** | Metrics, labels, data-like content |
+
+### Type scale
+
+```text
+Hero:      clamp(3.5rem, 8vw, 8rem)
+Section:   clamp(2rem, 4vw, 4.5rem)
+Body:      1rem / 1.6
+Mono:      0.875rem–1rem
 ```
 
 ---
 
-## 3. COLOR SYSTEM (Unchanged — fully defined)
+## 5. BUILD SCOPE
 
+### Sections to build
+
+| # | Section | Purpose |
+|---|---------|---------|
+| 1 | Hero | First impression, cinematic impact |
+| 2 | Mission Overview | Explain Aditya-L1 clearly |
+| 3 | Solar Flares Explainer | Teach flare classes and meaning |
+| 4 | Scroll Story | Signature interactive sequence |
+| 5 | Footer CTA | Clean final impression |
+
+### Build priorities
+
+1. **Hero must feel premium**
+2. **Scroll story must be memorable**
+3. **Mission and science sections must be clear**
+4. **Everything must be responsive**
+5. **Ship a polished demo**
+
+---
+
+## 6. CONTENT TONE
+
+Writing should feel:
+
+```text
+concise · scientific · clear · powerful
 ```
-Deep Black:      #05070B   →  Backgrounds
-Space Navy:      #0A1020   →  Section alternates
-Charcoal:        #111827   →  Elevated surfaces
 
-Plasma Orange:   #FF7A00   →  Primary accent, hero glow
-Flare Gold:      #FFB347   →  Secondary accent
-Eruption Red:    #FF4D36   →  Flare burst indicators
-Corona Amber:    #FFC857   →  Warmth layer
+### Example tone
 
-Instrument Cyan: #55D6FF   →  Data visualization
-Telemetry Blue:  #4EA8DE   →  UI accents
-Signal Violet:   #8B5CF6   →  Rare emphasis (< 5%)
-```
-
-**Distribution**: 80% neutrals · 15% solar tones · 5% cool scientific
+- Good: "Aditya-L1 positions solar instruments at the Sun–Earth L1 point to observe dynamic solar activity with uninterrupted precision."
+- Good: "Solar flares are intense localized bursts of electromagnetic radiation driven by magnetic energy release in the Sun's atmosphere."
 
 ---
 
-## 4. TYPOGRAPHY SYSTEM (Unchanged)
+## 7. DEFINITION OF SUCCESS
 
-| Role | Font | Spec |
-|------|------|------|
-| Display | **Space Grotesk** | Hero: `clamp(3.5rem, 8vw, 8rem)` · Section: `clamp(2rem, 4vw, 4.5rem)` |
-| Body | **Inter** | 1rem / 1.6 line-height |
-| Monospace | **JetBrains Mono** | Data values: 0.875–1rem |
+By the end of the build:
 
----
-
-## 5. SECTIONS WE BUILD TODAY
-
-| # | Section | Original in 18-day | Why it made the cut |
-|---|---------|-------------------|-------------------|
-| 1 | **Hero** | plan.md §8 Content Checklist | First impression. Non-negotiable. |
-| 2 | **Mission Overview** | plan.md §8 | Establishes scientific credibility |
-| 3 | **Solar Flares Explainer** | plan.md §8 | Educational core, visual flair |
-| 4 | **Scroll Story (4 acts)** | flow.md §2.6 | The "wow" section. Signature moment. |
-| 5 | **Footer CTA** | flow.md §2.9 | Strong exit |
-
-### Deferred to Phase 2 (per full 18-day plan)
-
-- Payloads Grid
-- Telemetry Dashboard
-- Observatory Gallery
-- Detailed Timeline
-- Anime.js choreography
-
----
-
-## 6. DEFINITION OF SUCCESS (Today)
-
-By tomorrow evening:
-
-- [ ] Hero loads with animated solar visual + staggered heading + CTA
+- [ ] Hero feels premium and original
 - [ ] Scroll story transitions smoothly through all 4 acts
-- [ ] Mission and Flares sections have scroll-reveal animations
-- [ ] Page is responsive at 375px, 768px, 1024px, 1440px
-- [ ] `prefers-reduced-motion` disables animations gracefully
-- [ ] No console errors, TypeScript compiles clean
-- [ ] Deployed to Vercel with a live URL
+- [ ] Mission and flares sections are clear and polished
+- [ ] Mobile layout holds up cleanly
+- [ ] Reduced motion is respected
+- [ ] Build is deployable and stable
 
 ---
 
-*Full long-term vision lives in `plan-18day/plan.md`. This sprint executes the highest-impact subset.*
+## 8. DELIVERY TARGET
+
+A polished landing page that helps a viewer understand:
+
+- What Aditya-L1 is
+- Why solar flares matter
+- How the mission observes solar activity
+- Why the project feels technically impressive
+
+---
+
+*This is the working project plan for the build.*
