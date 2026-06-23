@@ -1,204 +1,164 @@
-# SPRINT ARCHITECTURE — Aditya-L1 Solar Flares (15-Hour Edition)
+# FRONTEND ARCHITECTURE — Aditya-L1 Solar Flares
 
-> **Technical foundation for the compressed sprint build.**
-> Full architecture in `plan-18day/frontend-architecture.md`.
+> Technical blueprint for the 15-hour build.
 
 ---
 
 ## 1. TECHNOLOGY STACK
 
-| Layer | Technology | Why |
-|-------|-----------|-----|
-| Framework | **Next.js** (App Router) | Production SSR, image optimization |
-| Language | **TypeScript** (strict) | Type safety |
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| Framework | **Next.js** (App Router) | Production-ready frontend foundation |
+| Language | **TypeScript** | Type safety and maintainability |
 | Styling | **Tailwind CSS** | Fast design system implementation |
-| Animation | **Motion for React** | One engine for everything — reveals, scroll, hover |
-| 3D (Hero) | **React Three Fiber + Drei** | Stars background + shadergradient solar core |
-| Base UI | **shadcn/ui** (button, card, sheet, tooltip only) | Accessible primitives |
-| Shaders | **@shadergradient/react** | 15-min setup for premium solar visual |
+| UI Primitives | **shadcn/ui** | Buttons, cards, sheet, tooltip |
+| Animation | **Motion for React** | Reveals, hover states, scroll transforms |
+| 3D / Atmosphere | **React Three Fiber + Drei** | Hero background and stars |
+| Visual Shader | **@shadergradient/react** | Solar core visual |
 
-### What we're NOT installing (yet)
-
-| Library | Reason |
-|---------|--------|
-| animejs | Time to learn/debug a second engine. Motion covers all our needs today. |
-| @tsparticles | Drei Stars already gives us starfield |
-| zustand / state libs | Not needed for 5 sections |
-
----
-
-## 2. DEPENDENCY INSTALLATION
+### Dependency set
 
 ```bash
-# Step 1 — Scaffold
 npx create-next-app@latest aditya-l1-frontend --typescript --tailwind --app --src-dir --import-alias "@/*"
-
-# Step 2 — Animation & UI
 cd aditya-l1-frontend
-npm install motion
-npx shadcn@latest init
+npm install motion three @react-three/fiber @react-three/drei @shadergradient/react
+npx shadcn@latest init -d
 npx shadcn@latest add button card sheet tooltip
-
-# Step 3 — 3D & Shaders
-npm install three @react-three/fiber @react-three/drei @shadergradient/react
 npm install -D @types/three
 ```
 
 ---
 
-## 3. PROJECT DIRECTORY STRUCTURE
+## 2. PROJECT STRUCTURE
 
-```
+```text
 src/
 ├── app/
-│   ├── layout.tsx            ← Fonts, metadata, noise overlay, navbar
-│   ├── page.tsx              ← Compose 5 sections
-│   └── globals.css           ← Tailwind layers, base styles
-│
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
 ├── components/
 │   ├── layout/
 │   │   ├── navbar.tsx
 │   │   └── section-shell.tsx
-│   ├── sections/
-│   │   ├── hero/
-│   │   │   ├── hero.tsx
-│   │   │   ├── solar-core.tsx         (shadergradient wrapper)
-│   │   │   └── starfield.tsx          (drei Stars wrapper)
-│   │   ├── scroll-story/
-│   │   │   ├── scroll-story.tsx       (sticky container)
-│   │   │   ├── scene-renderer.tsx     (4 acts mapping)
-│   │   │   └── progressive-labels.tsx
-│   │   ├── mission/
-│   │   │   └── mission.tsx
-│   │   ├── flares/
-│   │   │   └── flares.tsx
-│   │   └── footer/
-│   │       └── footer.tsx
 │   ├── animation/
-│   │   ├── reveal-group.tsx
 │   │   ├── animated-heading.tsx
+│   │   ├── reveal-group.tsx
 │   │   └── stagger-container.tsx
-│   └── ui-parts/
-│       ├── glow-button.tsx
-│       ├── glass-panel.tsx
-│       └── metric-chip.tsx
-│
+│   ├── ui-parts/
+│   │   ├── glow-button.tsx
+│   │   ├── glass-panel.tsx
+│   │   └── metric-chip.tsx
+│   └── sections/
+│       ├── hero/
+│       │   ├── hero.tsx
+│       │   ├── solar-core.tsx
+│       │   ├── starfield.tsx
+│       │   └── scene-wrapper.tsx
+│       ├── mission/
+│       │   └── mission.tsx
+│       ├── flares/
+│       │   └── flares.tsx
+│       ├── scroll-story/
+│       │   ├── scroll-story.tsx
+│       │   ├── scene-renderer.tsx
+│       │   └── progressive-labels.tsx
+│       └── footer/
+│           └── footer.tsx
 ├── hooks/
 │   └── use-scroll-progress.ts
-│
 └── lib/
-    ├── utils.ts
-    └── constants.ts
+    ├── constants.ts
+    └── utils.ts
 ```
-
-**~20 files total.** One person can build this in 15 hours.
 
 ---
 
-## 4. COMPONENT TREE (Today's Scope)
+## 3. COMPONENT TREE
 
-```
+```text
 <AppLayout>
-  <Navbar />                          ← transparent → blur on scroll
+  <Navbar />
   <main>
     <HeroSection>
-      <NoiseOverlay />
-      <Starfield />                   ← drei <Stars />
-      <SolarCore />                   ← shadergradient <Gradient type="sphere" />
+      <Starfield />
+      <SolarCore />
       <AnimatedHeading />
       <GlowButton />
     </HeroSection>
 
-    <MissionOverview>
+    <MissionSection>
       <AnimatedHeading />
-      <p>                              ← mission text, scroll-reveal
-      <MetricChip />                   ← animated counter
-    </MissionOverview>
+      <MetricChip />
+    </MissionSection>
 
-    <SolarFlaresExplainer>
+    <FlaresSection>
       <AnimatedHeading />
-      <StaggerContainer>
-        <GlassPanel> → FlareCard ×5   ← B, C, M, X, XX classes
-      </StaggerContainer>
-    </SolarFlaresExplainer>
+      <GlassPanel /> × 5
+    </FlaresSection>
 
     <ScrollStorySection>
-      <ScrollProgress />              ← useScroll + useTransform
-      <StickyContainer>
-        <SceneRenderer />             ← 4 acts driven by progress
-        <ProgressiveLabels />
-      </StickyContainer>
+      <SceneRenderer />
+      <ProgressiveLabels />
     </ScrollStorySection>
 
-    <FooterCTA>
+    <FooterSection>
       <AnimatedHeading />
       <GlowButton />
-      <FooterLinks />
-    </FooterCTA>
+    </FooterSection>
   </main>
 </AppLayout>
 ```
 
 ---
 
-## 5. DATA FLOW (Simplified)
+## 4. DATA MODEL
 
-```typescript
-// lib/constants.ts — all content lives here for speed
+All content can live in `lib/constants.ts` for speed.
+
+```ts
 export const MISSION_DATA = {
-  title: "Aditya-L1",
-  description: "...",
+  title: 'Aditya-L1',
+  tagline: "India's first dedicated solar mission",
   metrics: [
-    { label: "Lagrange Point", value: "L1" },
-    { label: "Distance", value: "1.5M KM" },
-    { label: "Observation", value: "24/7" },
+    { label: 'Position', value: 'L1 Point' },
+    { label: 'Distance', value: '1.5M KM' },
+    { label: 'Coverage', value: '24/7' },
   ],
 };
 
 export const FLARE_CLASSES = [
-  { label: "B", energy: "Minor", color: "#55D6FF" },
-  { label: "C", energy: "Moderate", color: "#4EA8DE" },
-  { label: "M", energy: "Strong", color: "#FFB347" },
-  { label: "X", energy: "Major", color: "#FF7A00" },
-  { label: "XX", energy: "Extreme", color: "#FF4D36" },
+  { label: 'B', name: 'Minor', color: '#55D6FF' },
+  { label: 'C', name: 'Moderate', color: '#4EA8DE' },
+  { label: 'M', name: 'Strong', color: '#FFB347' },
+  { label: 'X', name: 'Major', color: '#FF7A00' },
+  { label: 'XX', name: 'Extreme', color: '#FF4D36' },
 ];
-
-// Scroll story: progress (0→1) drives visual transforms
-// See flow.md in sprint-15hr for the 4 act mappings
 ```
 
 ---
 
-## 6. PERFORMANCE BUDGET (Today)
+## 5. PERFORMANCE RULES
 
-| Metric | Target | How |
-|--------|--------|-----|
-| FCP | < 1.5s | Static export, minimal JS upfront |
-| LCP | < 2.5s | Lazy-load 3D canvas, preload fonts |
-| TBT | < 100ms | No heavy computation on main thread |
-| CLS | < 0.05 | Fixed dimensions for all canvases |
-
-### Key performance decisions
-
-1. **Dynamic import** for hero 3D canvas — not loaded until hero is in viewport
-2. **No three.js on scroll story** — use DOM + Motion transforms instead
-3. **Static content** — no data fetching, no API calls
-4. **WebP or SVG** for all imagery
+1. Lazy-load hero 3D pieces with `dynamic(..., { ssr: false })`
+2. Use DOM + Motion for scroll story, not full 3D
+3. Animate only `transform` and `opacity`
+4. Keep stars lightweight
+5. No API dependency for the first version
 
 ---
 
-## 7. QUALITY GATES (Today)
+## 6. QUALITY GATES
 
-Before considering a section "done":
+Before calling the build done:
 
-- [ ] Renders at 375px, 768px, 1024px, 1440px
-- [ ] No horizontal scroll
-- [ ] Keyboard navigable
-- [ ] prefers-reduced-motion respected
-- [ ] All hover states have visual feedback
+- [ ] Works at 375px, 768px, 1024px, 1440px
+- [ ] No horizontal overflow
 - [ ] No console errors
-- [ ] TypeScript compiles ✅
+- [ ] Reduced motion behaves gracefully
+- [ ] Build passes cleanly
+- [ ] Deploys successfully
 
 ---
 
-*Full architecture reference: `plan-18day/frontend-architecture.md`. Today we build the skeleton with maximum visual impact.*
+*This architecture is optimized for fast execution and polished output.*

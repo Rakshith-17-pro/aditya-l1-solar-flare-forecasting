@@ -1,197 +1,172 @@
-# SPRINT FLOW — Aditya-L1 Solar Flares (15-Hour Edition)
+# USER FLOW & SITE STRUCTURE — Aditya-L1 Solar Flares
 
-> **User journey for our 5-section compressed build.**
-> Full 9-section experience in `plan-18day/flow.md`.
-
----
-
-## 1. OVERALL USER JOURNEY
-
-```
-                    ┌─────────────────────────┐
-                    │   ENTRY POINT           │
-                    └──────────┬──────────────┘
-                               │
-                               ▼
-                    ┌─────────────────────────┐
-                    │   HERO                  │ ◄── Cinematic first contact
-                    │   "Solar Intelligence   │     Starfield + solar core +
-                    │    in Motion"           │     staggered heading
-                    └──────────┬──────────────┘
-                               │
-                    ┌──────────▼──────────────┐
-                    │   MISSION OVERVIEW      │ ◄── Context & credibility
-                    │   "Watching the Sun,    │     Metrics + reveal
-                    │    Uninterrupted"       │
-                    └──────────┬──────────────┘
-                               │
-                    ┌──────────▼──────────────┐
-                    │   SOLAR FLARES          │ ◄── Educational core
-                    │   Explainer             │     Flare class cards
-                    │   (What, How, Classes)  │     + stagger reveal
-                    └──────────┬──────────────┘
-                               │
-                    ┌──────────▼──────────────┐
-                    │   SCROLL STORY ★★★      │ ◄── Signature moment
-                    │   (Flare Evolution)     │     Cinema-quality
-                    │   Quiet → Burst → Data  │     sticky scroll narrative
-                    └──────────┬──────────────┘
-                               │
-                    ┌──────────▼──────────────┐
-                    │   CLOSING CTA / FOOTER  │ ◄── Final impression
-                    │   "Observe the Sun.     │     Strong exit
-                    │    Understand the Storm"│
-                    └─────────────────────────┘
-```
+> The full user journey for the build.
 
 ---
 
-## 2. SECTION-BY-SECTION FLOW
+## 1. JOURNEY MAP
+
+```text
+ENTRY
+  ↓
+HERO
+  ↓
+MISSION OVERVIEW
+  ↓
+SOLAR FLARES EXPLAINER
+  ↓
+SCROLL STORY
+  ↓
+FOOTER CTA
+```
+
+This is a **guided narrative**, not a content dump.
+
+---
+
+## 2. SECTION FLOW
 
 ### 2.1 HERO — "Solar Intelligence in Motion"
 
-**Purpose**: First impression. Non-negotiable.
+**Purpose**: Establish visual confidence immediately.
 
-**User Experience**:
-1. Page loads into deep space background
-2. Starfield drifts slowly (drei `<Stars />`)
-3. Solar core pulses at center — shadergradient plasma sphere
-4. After 0.5s delay, headline word-staggered reveal:
-   - "SOLAR" → slides up (y: 40→0)
-   - "INTELLIGENCE" → slides up (+200ms)
-   - "IN MOTION" → slides up (+400ms)
-5. Sub-headline fades in below
-6. CTA button reveals with glow pulse
-7. On CTA hover: scale 1.02, glow intensifies
+**Sequence**:
+1. Dark deep-space background appears
+2. Starfield drifts subtly
+3. Solar core glows at the center
+4. Headline reveals word by word
+5. Subheadline fades in
+6. CTA appears with glow pulse
 
-**Exit**: Scroll down → fade transition to Mission
+**Emotion target**: `awe + curiosity + confidence`
 
 ---
 
-### 2.2 MISSION OVERVIEW — Context
+### 2.2 MISSION OVERVIEW — "Watching the Sun, Uninterrupted"
 
-**Purpose**: Tell the user what Aditya-L1 is.
+**Purpose**: Ground the experience in real science.
 
-**User Experience**:
-1. Section enters with fade + y-shift reveal
-2. Heading: "Watching the Sun, Uninterrupted"
-3. 2-3 paragraph mission explanation
-4. Metric chips animate on entry:
-   - "Lagrange Point L1"
-   - "1.5 Million KM from Earth"
-   - "24/7 Solar Observation"
-5. Clean, typography-forward layout
-
-**Exit**: Scroll → Flares section
+**Flow**:
+1. Heading reveals on scroll
+2. Mission explanation appears in clean paragraphs
+3. Metric chips animate in:
+   - L1 Point
+   - 1.5 Million KM
+   - 24/7 Observation
 
 ---
 
-### 2.3 SOLAR FLARES EXPLAINER — Science Moment
+### 2.3 SOLAR FLARES EXPLAINER — "What is a Solar Flare?"
 
-**Purpose**: Teach solar flare classes with visual cards.
+**Purpose**: Teach the science simply and elegantly.
 
-**User Experience**:
-1. Slightly warmer section tint
-2. Heading: "What is a Solar Flare?"
-3. Brief scientific explanation (reveal on scroll)
-4. **Flare classification cards** (B, C, M, X, XX):
-   - Stagger-reveal on scroll
-   - Each card: class label, energy description, color indicator
-   - Hover: border glow illuminates (X-class = hottest red)
-5. Simple explanatory line or visual below cards
-
-**Exit**: Scroll → Scroll Story
-
----
-
-### 2.4 SCROLL STORY ★★★ — The Signature Experience
-
-**Purpose**: Cinema-quality narrative where scroll position controls the scene. This is the "wow" section.
-
-**User Experience**:
-- Full-viewport sticky section
-- As user scrolls through 500vh of content, the scene evolves through 4 acts:
-
-```
-Scroll  0%  →  [QUIET SUN]
-                 Warm amber glow, calm particles
-                 "The Sun, in its quiet state..."
-
-Scroll 25%  →  [ACTIVITY BUILDUP]
-                 Surface brightens, arcs begin
-                 "Magnetic energy accumulates..."
-
-Scroll 50%  →  [FLARE BURST]
-                 Intense flash, expanding ring
-                 "A flare erupts — billions of megatons..."
-
-Scroll 75%  →  [OBSERVATION]
-                 Spacecraft icon, data lines
-                 "Captured by Aditya-L1 in real-time..."
-```
-
-**Visual system**:
-- All DOM-based (no R3F canvas)
-- `useScroll` + `useTransform` drives CSS properties
-- Colors shift: amber → white-hot → cool scientific blue
-- Text labels fade in/out per act
-- Simple geometric spacecraft icon fades in at act 4
-
-**This section alone defines the project's quality.**
+**Flow**:
+1. Heading reveals
+2. Brief explanation appears
+3. Flare class cards stagger in:
+   - B
+   - C
+   - M
+   - X
+   - XX
+4. Hover states communicate intensity visually
 
 ---
 
-### 2.5 FOOTER CTA — Final Impression
+### 2.4 SCROLL STORY — Signature Experience
 
-**Purpose**: End the experience strong.
+**Purpose**: Deliver the main interactive payoff.
 
-**User Experience**:
-1. Wide section with deep space background
-2. Large closing statement
+This section is a sticky full-screen sequence controlled by scroll progress.
+
+#### Act 1 — Quiet Sun
+- Calm glow
+- Minimal activity
+- Text: "The Sun, in its quiet state..."
+
+#### Act 2 — Activity Buildup
+- Brightening surface
+- Emerging magnetic arcs
+- Text: "Magnetic energy accumulates..."
+
+#### Act 3 — Flare Burst
+- Sharp flash
+- Expanding ring
+- Peak visual intensity
+- Text: "A flare erupts..."
+
+#### Act 4 — Observation
+- Spacecraft icon appears
+- Data line connects event to observation
+- Text: "Captured by Aditya-L1 in real-time..."
+
+---
+
+### 2.5 FOOTER CTA — Closing Statement
+
+**Purpose**: End strong and clean.
+
+**Flow**:
+1. Large closing statement
+2. Supporting line
 3. CTA button
-4. Footer with ISRO credit and project info
+4. Credits / ISRO acknowledgement
 
 ---
 
-## 3. SCROLL BEHAVIOR MAP (Today)
+## 3. NAVIGATION BEHAVIOR
 
-```
-                    SCROLL DIRECTION
-                    ───────────────►
-
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  HERO    │───►│ MISSION  │───►│  FLARES  │───►│  SCROLL  │───►│  FOOTER  │
-│          │    │          │    │          │    │  STORY   │    │          │
-│ fade-out │    │ mask-up  │    │ stagger  │    │ sticky   │    │ fade-in  │
-│ scroll-  │    │ reveal   │    │ cards    │    │ canvas   │    │          │
-│ driven   │    │          │    │          │    │ 4 acts   │    │          │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘
-```
-
----
-
-## 4. NAVIGATION (Simplified)
+### Navbar states
 
 | State | Behavior |
 |-------|----------|
-| Hero top | Transparent navbar |
-| Scrolled past hero | Blur backdrop (`bg-black/50 backdrop-blur-xl`) |
-| Mobile | Hamburger → sheet overlay |
+| Top of hero | Transparent |
+| After scroll | Blur backdrop + subtle border |
+| Mobile | Hamburger → full overlay sheet |
 
-**Nav items**: `Mission` · `Science` · `Story` · (CTA)
+### Nav items
 
----
-
-## 5. RESPONSIVE BEHAVIOR
-
-| Section | Desktop (≥1024px) | Tablet (768px) | Mobile (<768px) |
-|---------|-------------------|----------------|-----------------|
-| Hero | Full 3D canvas, stagger text | Canvas smaller | No 3D, text compact |
-| Mission | Side-by-side | Stacked | Single column |
-| Flares | 5 cards row | 3-2 grid | 1 per row |
-| Scroll Story | Full sticky canvas | Smaller visuals | Text-focused, reduced effects |
-| Footer | Full width | Full width | Compact |
+```text
+Mission · Science · Story
+```
 
 ---
 
-*Full journey with all 9 sections: `plan-18day/flow.md`.*
+## 4. SCROLL BEHAVIOR MAP
+
+```text
+HERO → MISSION → FLARES → SCROLL STORY → FOOTER
+```
+
+### Transition style
+
+- Hero → Mission: fade + y shift
+- Mission → Flares: standard reveal
+- Flares → Story: transition into sticky full-screen sequence
+- Story → Footer: calm fade out into closing frame
+
+---
+
+## 5. RESPONSIVE RULES
+
+| Section | Desktop | Tablet | Mobile |
+|---------|---------|--------|--------|
+| Hero | Full visual treatment | Slightly reduced canvas | Compact layout, simplified 3D |
+| Mission | 2-column feel possible | Stacked | Single column |
+| Flares | 5-up grid | 3+2 grid | Single column or 2-up |
+| Scroll Story | Full sticky experience | Full sticky experience | Reduced visual intensity, same narrative |
+| Footer | Spacious | Spacious | Compact |
+
+---
+
+## 6. EXPERIENCE PRINCIPLES
+
+1. Every section should have a clear purpose
+2. Motion should support meaning
+3. The user should never feel lost
+4. Visual drama should peak in the scroll story
+5. The footer should feel like a deliberate ending
+
+---
+
+*This flow should feel like turning pages in a cinematic science story.*

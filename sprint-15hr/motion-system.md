@@ -1,259 +1,196 @@
-# SPRINT MOTION SYSTEM — Aditya-L1 Solar Flares (15-Hour Edition)
+# MOTION SYSTEM — Aditya-L1 Solar Flares
 
-> **Complete animation language for our compressed build.**
-> Full motion specs in `plan-18day/motion-system.md`.
+> The animation language for the build.
 
 ---
 
-## 1. MOTION PHILOSOPHY (Unchanged — The Four Laws)
+## 1. MOTION PHILOSOPHY
+
+### Four laws
 
 | # | Law | Meaning |
 |---|-----|---------|
-| 1 | **Motion must explain hierarchy** | Important things move more prominently. Supporting elements stay subtle. |
-| 2 | **Motion must create atmosphere** | Ambient motion builds the world. Intentional motion delivers the message. |
-| 3 | **Motion must never reduce legibility** | If an animation makes text harder to read, it's wrong. |
-| 4 | **Motion should intensify with importance** | A hero headline earns a dramatic entrance. A footnote just fades in. |
+| 1 | Motion explains hierarchy | Important elements move more clearly |
+| 2 | Motion creates atmosphere | Ambient motion builds the world |
+| 3 | Motion preserves legibility | No animation should hurt readability |
+| 4 | Motion intensifies with importance | Hero > section > detail |
 
 ---
 
-## 2. ANIMATION TOKENS (Simplified for speed)
+## 2. ANIMATION TOKENS
 
-### Duration Tokens
+### Durations
 
-```
-micro      120ms    Hover states, tap feedback
-fast       200ms    Small UI toggles, active states
-standard   500ms    Card reveals, section entrances, fade transitions
-slow       900ms    Premium reveals, heading entrances
-premium   1400ms    Hero headline stagger sequence
-ambient   4000ms+   Continuous loops, starfield drift
-```
-
-### Easing Tokens (Cubic Bézier)
-
-```
-ease-standard   [0.25, 0.1, 0.25, 1.0]    Natural, neutral
-ease-emphasis   [0.16, 1.0, 0.3, 1.0]     Premium, confident
-ease-orbital    [0.45, 0.0, 0.55, 1.0]    Mechanical, scientific
+```text
+micro      120ms   Hover transitions
+fast       200ms   Small UI state changes
+standard   500ms   Section reveals, fades
+slow       900ms   Premium entrances
+premium   1400ms   Hero stagger sequence
+ambient   4000ms+  Loops and drifting motion
 ```
 
-### Stagger Tokens
+### Easings
 
-```
-micro      20ms     Grid items, dense groups
-tight      50ms     Cards, menu items
-standard  100ms     Sections, feature panels
-emphasis  200ms     Hero headline words
-```
-
----
-
-## 3. ANIMATION ENGINE (Simplified)
-
-**One engine for everything: Motion for React.**
-
-| Capability | Motion API | Where |
-|------------|-----------|-------|
-| Element enter/exit | `animate`, `whileInView` | All sections |
-| Scroll-linked transforms | `useScroll`, `useTransform` | Scroll story, parallax |
-| Hover gestures | `whileHover`, `whileTap` | Buttons, cards |
-| Staggered reveals | `stagger` in `animate` | Cards, flare grid |
-| Reduced motion | `useReducedMotion` | Global compliance |
-
-No anime.js today. No custom R3F shaders beyond shadergradient.
-
----
-
-## 4. SECTION ANIMATION SPECIFICATIONS
-
-### 4.1 HERO
-
-```
-┌─────────────────────────────────────────────────────┐
-│                    HERO SEQUENCE                      │
-├─────────────────────────────────────────────────────┤
-│                                                       │
-│  Step 1: BACKGROUND CANVAS                            │
-│  - Starfield begins drifting (ambient, 8s loop)      │
-│  - Solar core: shadergradient renders immediately     │
-│  - Core begins slow rotation (auto via shadergradient)│
-│                                                       │
-│  Step 2: HEADLINE REVEAL (Motion for React)           │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │  "SOLAR"          y: 40→0, op: 0→1  0ms        │ │
-│  │  "INTELLIGENCE"   y: 40→0, op: 0→1  200ms      │ │
-│  │  "IN MOTION"      y: 40→0, op: 0→1  400ms      │ │
-│  │  Each word:       ease-emphasis, duration 800ms │ │
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-│  Step 3: SUB-HEADLINE                                 │
-│  - Fade + y: 20→0, delay: 700ms, duration: 600ms    │
-│                                                       │
-│  Step 4: CTA BUTTON                                   │
-│  - Scale: 0.95→1, opacity: 0→1                       │
-│  - Delay: 300ms after sub-headline                   │
-│  - Duration: 500ms, ease-emphasis                    │
-│  - On hover: scale 1.02, glow intensity +30%         │
-│                                                       │
-└─────────────────────────────────────────────────────┘
+```text
+ease-standard   [0.25, 0.1, 0.25, 1]
+ease-emphasis   [0.16, 1, 0.3, 1]
+ease-orbital    [0.45, 0, 0.55, 1]
 ```
 
-### 4.2 SECTION REVEALS (Mission, Flares)
+### Staggers
 
-```
-┌─────────────────────────────────────────────────────┐
-│              STANDARD SECTION REVEAL                  │
-├─────────────────────────────────────────────────────┤
-│  Trigger: element enters 85% of viewport              │
-│                                                       │
-│  Heading:                                             │
-│    initial:  { opacity: 0, y: 30 }                   │
-│    animate:  { opacity: 1, y: 0 }                    │
-│    duration: 700ms, ease-emphasis                     │
-│                                                       │
-│  Body content:                                        │
-│    initial:  { opacity: 0, y: 20 }                   │
-│    animate:  { opacity: 1, y: 0 }                    │
-│    duration: 600ms, ease-standard                     │
-│    stagger: 100ms between elements                    │
-│                                                       │
-│  Cards / Grid items:                                  │
-│    initial:  { opacity: 0, y: 40, scale: 0.95 }      │
-│    animate:  { opacity: 1, y: 0, scale: 1 }          │
-│    duration: 500ms, ease-standard                     │
-│    stagger: 60ms between cards                        │
-│                                                       │
-└─────────────────────────────────────────────────────┘
-```
-
-### 4.3 FLARE CARDS
-
-```
-┌─────────────────────────────────────────────────────┐
-│              FLARE CARD INTERACTION                   │
-├─────────────────────────────────────────────────────┤
-│  ENTER (scroll reveal):                              │
-│  - Scale: 0.95→1, opacity: 0→1                       │
-│  - Duration: 500ms, stagger: 80ms                    │
-│  - Ease: ease-standard                               │
-│                                                       │
-│  HOVER ENTER (150ms):                                 │
-│  - Border: transparent → class-colored glow          │
-│  - Background: base → +5% brightness                 │
-│  - Cursor: pointer                                   │
-│                                                       │
-│  HOVER EXIT (200ms):                                  │
-│  - Reverse all properties                             │
-│                                                       │
-└─────────────────────────────────────────────────────┘
-```
-
-### 4.4 SCROLL STORY — The Signature
-
-```
-┌─────────────────────────────────────────────────────┐
-│              SCROLL STORY — 4 ACT STRUCTURE          │
-├─────────────────────────────────────────────────────┤
-│                                                       │
-│  SETUP:                                              │
-│  - Section is h-[500vh], inner div is sticky h-screen│
-│  - Scroll progress mapped to 0→1 via useTransform    │
-│  - All scene elements are DOM (no R3F canvas)        │
-│                                                       │
-│  ACT 1 — QUIET SUN (0.00–0.25)                       │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │  Background: warm amber (#FF7A00 at 15% opacity) │ │
-│  │  Circle: large, soft glow, calm pulse            │ │
-│  │  Text: "The Sun, in its quiet state..."          │ │
-│  │  → fades in at 0.05, out at 0.20                │ │
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-│  ACT 2 — ACTIVITY BUILDUP (0.25–0.50)                │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │  Background: brightens (#FF7A00 at 30% opacity)  │ │
-│  │  Circle: scale 1→1.1, surface arcs via SVG      │ │
-│  │  Text: "Magnetic energy accumulates..."          │ │
-│  │  → fades in at 0.30, out at 0.45                │ │
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-│  ACT 3 — FLARE BURST (0.50–0.75)                     │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │  Background: white-hot (#FFFFFF at 20% opacity)  │ │
-│  │  Circle: max scale 1.2, expanding ring           │ │
-│  │  Flash element: opacity pulses at burst peak     │ │
-│  │  Text: "A flare erupts..."                       │ │
-│  │  → fades in at 0.55, out at 0.70                │ │
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-│  ACT 4 — OBSERVATION (0.75–1.00)                     │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │  Background: cool scientific blue               │ │
-│  │  Spacecraft icon: fades in (simple SVG/div)     │ │
-│  │  Data lines: stroke-dasharray 0→1               │ │
-│  │  Text: "Captured by Aditya-L1 in real-time..."   │ │
-│  │  → fades in at 0.80, stays till end             │ │
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-└─────────────────────────────────────────────────────┘
-```
-
-### 4.5 METRIC COUNTERS (Mission section)
-
-```
-┌─────────────────────────────────────────────────────┐
-│              METRIC COUNTER ANIMATION                 │
-├─────────────────────────────────────────────────────┤
-│  Trigger: counter enters viewport                     │
-│  Duration: 1500ms, ease-standard                     │
-│  Implementation: Motion's `animate` with number       │
-│  From: 0 → target value                              │
-│  Format: locale-aware (e.g., "1.5M", "24/7")         │
-└─────────────────────────────────────────────────────┘
+```text
+micro      20ms
+tight      50ms
+standard  100ms
+emphasis  200ms
 ```
 
 ---
 
-## 5. REDUCED MOTION COMPLIANCE
+## 3. MOTION TOOLING
 
-```typescript
-import { useReducedMotion } from 'motion/react';
+**Primary engine: Motion for React**
 
-const shouldReduceMotion = useReducedMotion();
-```
-
-| Animation Type | Normal | Reduced Motion |
-|---------------|--------|----------------|
-| Stagger sequences | Full stagger | All items appear simultaneously |
-| Scroll-linked transforms | Progress-driven | Static at midpoint |
-| Continuous ambient | Loops | Static initial state |
-| Hover animations | Full hover sequence | Color change only |
-| Counter animations | Animate over 1.5s | Show final value immediately |
-| Hero headline | 200ms stagger | All words together |
+Use it for:
+- heading reveals
+- section reveals
+- hover states
+- sticky scroll story transforms
+- reduced motion handling
 
 ---
 
-## 6. PERFORMANCE GUIDELINES
+## 4. SECTION SPECS
 
-| Rule | Why |
-|------|-----|
-| Use `transform` and `opacity` only | GPU-composited, no layout thrashing |
-| Avoid animating `width`, `height`, `top`, `left` | Triggers layout recalculation |
-| Keep canvas particle count under 5,000 | GPU memory |
-| Dynamic import for 3D components | Don't load three.js until hero is in view |
-| Use `will-change: transform` sparingly | Overuse consumes GPU memory |
+### 4.1 Hero
+
+**Background**
+- Starfield drifts slowly
+- Solar core glows continuously
+
+**Headline**
+- Word stagger
+- `y: 40 → 0`
+- `opacity: 0 → 1`
+- duration: `800ms`
+- stagger: `200ms`
+
+**Subheadline**
+- fade + y shift
+- delayed after heading
+
+**CTA**
+- scale `0.95 → 1`
+- fade in
+- hover scale `1.02`
+- glow intensity increases on hover
+
+---
+
+### 4.2 Standard Section Reveal
+
+Used by Mission and Flares.
+
+**Heading**
+- initial: `opacity 0, y 30`
+- visible: `opacity 1, y 0`
+- duration: `700ms`
+
+**Body copy**
+- initial: `opacity 0, y 20`
+- visible: `opacity 1, y 0`
+- duration: `600ms`
+
+**Cards**
+- initial: `opacity 0, y 40, scale 0.95`
+- visible: `opacity 1, y 0, scale 1`
+- duration: `500ms`
+- stagger: `60–80ms`
+
+---
+
+### 4.3 Flare Cards
+
+**Reveal**
+- scroll-triggered stagger
+
+**Hover**
+- border glow intensifies to class color
+- background brightness increases slightly
+- no aggressive transforms
+
+---
+
+### 4.4 Scroll Story
+
+This is the highest-motion section.
+
+#### Act 1 — Quiet Sun
+- soft glow
+- stable circle
+- low intensity color
+
+#### Act 2 — Buildup
+- brighter surface
+- arcs begin appearing
+- subtle scale increase
+
+#### Act 3 — Burst
+- high-intensity flash
+- expanding ring
+- strongest brightness shift
+
+#### Act 4 — Observation
+- spacecraft icon fades in
+- data line draws in
+- warm palette mixes with scientific blue
+
+### Scroll story mechanics
+- section height: `500vh`
+- inner frame: `sticky top-0 h-screen`
+- all transforms driven by `useScroll` + `useTransform`
+- use DOM/SVG, not heavy 3D
+
+---
+
+## 5. REDUCED MOTION
+
+Use `useReducedMotion()`.
+
+### Rules
+
+| Normal | Reduced |
+|--------|---------|
+| staggered heading | all words appear together |
+| animated scroll transforms | static midpoint state |
+| ambient loops | static state |
+| hover transforms | color-only change |
+| count-up metrics | immediate final value |
+
+---
+
+## 6. PERFORMANCE RULES
+
+1. Animate `transform` and `opacity` only
+2. Avoid layout-triggering properties
+3. Keep loops subtle
+4. Keep hero visuals lazy-loaded
+5. Reserve highest intensity for the scroll story
 
 ---
 
 ## 7. REUSABLE MOTION COMPONENTS
 
-| Component | What It Does | Used In |
-|-----------|-------------|---------|
-| `RevealGroup` | Staggered scroll reveal for children | Mission, Flares |
-| `AnimatedHeading` | Word-staggered heading reveal | Hero, all sections |
-| `StaggerContainer` | Auto-staggers direct children | Flare cards |
-| `GlowButton` | Button with glow + hover scale | Hero, Footer |
-| `Counter` | Animated number transitions | Mission metrics |
+| Component | Purpose |
+|-----------|---------|
+| `AnimatedHeading` | Word-staggered heading reveal |
+| `RevealGroup` | Stagger reveal wrapper |
+| `StaggerContainer` | Auto-staggers children |
+| `GlowButton` | CTA hover feedback |
+| `MetricChip` | Metric entrance animation |
 
 ---
 
-*Full motion system (including anime.js specs and per-section AMP pages): `plan-18day/motion-system.md`.*
+*The site should feel disciplined, cinematic, and controlled — never noisy.*
