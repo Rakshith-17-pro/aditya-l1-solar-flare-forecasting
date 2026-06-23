@@ -1,162 +1,232 @@
-# ADITYA-L1 SOLAR FLARES — 15 HOUR BUILD PLAN
+# ADITYA-L1 SOLAR FLARES — Sprint Build Plan (15 Hours)
 
-> **Solar Intelligence in Motion**
-> A cinematic, motion-first scientific storytelling frontend for Aditya-L1.
+> **Document Type:** Build Plan · **Status:** Active · **Estimated Duration:** 15 Hours
+> **Project:** Aditya-L1 Solar Flares Frontend · **Theme:** Solar Intelligence in Motion
 
 ---
 
-## 1. EXECUTIVE VISION
+## Table of Contents
 
-Build a **premium, visually immersive, motion-first frontend** for the Aditya-L1 mission and solar flare topic that feels bold, technical, and cinematic.
+1. [Executive Vision](#1-executive-vision)
+2. [Creative Direction](#2-creative-direction)
+3. [Design System: Color](#3-design-system-color)
+4. [Design System: Typography](#4-design-system-typography)
+5. [Build Scope & Delivery](#5-build-scope--delivery)
+6. [Content Standards](#6-content-standards)
+7. [Definition of Success](#7-definition-of-success)
+8. [Delivery Target](#8-delivery-target)
 
-### What This Is
+---
 
-| Not This | This Is |
-|----------|---------|
+## 1. Executive Vision
+
+Build a **premium, visually immersive, motion-first frontend** for the Aditya-L1 mission and solar flare phenomenon. The result must feel bold, technically precise, and cinematic — a scientific microsite that communicates authority and wonder in equal measure.
+
+### What We Are Building
+
+| This is NOT... | This IS... |
+|---|---|
 | A generic landing page | A premium scientific microsite |
 | A static educational page | A motion-led storytelling experience |
 | A cluttered dashboard | A focused, cinematic landing experience |
-| Random visual effects | Motion with purpose |
+| Random visual effects | Motion with narrative purpose |
+
+### Core Experience Pillars
+
+1. **Hero Impact** — The first scroll-stop moment must feel unmistakably premium
+2. **Scroll Story** — A signature 4-act interactive sequence that is the emotional core
+3. **Scientific Clarity** — Mission and flare explainers that teach without overwhelming
+4. **Responsive Integrity** — Flawless behavior across 375px–1440px
+5. **Polished Demo** — Deployable, stable, and presentable to stakeholders
 
 ---
 
-## 2. CREATIVE DIRECTION
+## 2. Creative Direction
 
 ### Visual Personality
 
-| Trait | Manifestation |
-|-------|---------------|
-| Confident | Large typography, uncluttered composition |
-| Precise | Clean grid, controlled motion, disciplined color |
-| Scientific | Monospace data accents, technical UI language |
-| Visionary | Deep-space atmosphere, solar glow, cinematic pacing |
+| Trait | How It Manifests |
+|---|---|
+| **Confident** | Large typography, uncluttered composition, generous whitespace |
+| **Precise** | Clean grid discipline, controlled motion curves, restrained color usage |
+| **Scientific** | Monospace data accents, technical UI language, metric-driven layouts |
+| **Visionary** | Deep-space atmosphere, solar glow gradients, cinematic pacing |
 
-### Emotional Palette
+### Emotional Spectrum
 
 ```
 PRECISION ────────────────────────────── WONDER
-      ↑                                    ↑
-  Engineering clarity             Solar-scale awe
-  Credibility                     Visual immersion
+     ↑                                        ↑
+ Engineering clarity               Solar-scale awe
+ Credibility                       Visual immersion
 ```
 
-The experience should feel like **engineered wonder**.
+The experience should feel like **engineered wonder** — the intersection of rigorous science and visual poetry.
+
+### Design Principles
+
+- **Dark-first canvas** — Deep space backgrounds let solar colors burn brightest
+- **Motion with purpose** — Every animation serves comprehension, not decoration
+- **Atmospheric depth** — Layered backgrounds (stars, core glow, particle drift) create immersion
+- **Data-inspired UI** — Metrics and labels use technical typography and subtle glassmorphism
 
 ---
 
-## 3. COLOR SYSTEM
+## 3. Design System: Color
 
-### Base palette
+### Base Palette (80% of visual area)
+
+| Token | Hex | Usage |
+|---|---|---|
+| Deep Black | `#05070B` | Page background |
+| Space Navy | `#0A1020` | Section backgrounds, cards |
+| Charcoal | `#111827` | UI surfaces, borders |
+
+### Solar Palette (15% of visual area)
+
+| Token | Hex | Usage |
+|---|---|---|
+| Plasma Orange | `#FF7A00` | Primary accent, CTA, flare X |
+| Flare Gold | `#FFB347` | Secondary accent, flare M |
+| Eruption Red | `#FF4D36` | Urgency, extreme events, flare XX |
+| Corona Amber | `#FFC857` | Highlights, subtle glows |
+
+### Scientific Accent Palette (5% of visual area)
+
+| Token | Hex | Usage |
+|---|---|---|
+| Instrument Cyan | `#55D6FF` | Data points, measurement UI |
+| Telemetry Blue | `#4EA8DE` | Links, secondary information |
+| Signal Violet | `#8B5CF6` | Special badges, spacecraft elements |
+
+### Color Application Rules
+
+- Solar tones are **reserved for emphasis** — they draw attention where it matters
+- Scientific accents appear only on **data-related elements** (metrics, labels, instruments)
+- Never apply more than **one solar tone per section** to avoid visual noise
+- Dark backgrounds use **luminance contrast** rather than saturation to create depth
+
+---
+
+## 4. Design System: Typography
+
+### Font Stack
+
+| Role | Font | Weight | Usage |
+|---|---|---|---|
+| Display | **Space Grotesk** | 600–700 | Hero headline, section headings |
+| Body | **Inter** | 300–500 | Paragraphs, descriptions, UI copy |
+| Mono | **JetBrains Mono** | 400–500 | Metrics, data labels, technical content |
+
+### Type Scale
 
 ```text
-Deep Black:      #05070B
-Space Navy:      #0A1020
-Charcoal:        #111827
+Level          Size                          Line Height
+──────────────────────────────────────────────────────────
+Hero           clamp(3.5rem, 8vw, 8rem)     1.1
+Section Title  clamp(2rem, 4vw, 4.5rem)      1.2
+Subheading     clamp(1.25rem, 2vw, 1.75rem)  1.3
+Body           1rem                           1.6
+Small          0.875rem                       1.5
+Mono Metric    0.875rem–1rem                  1.4
 ```
 
-### Solar palette
+### Typography Rules
 
-```text
-Plasma Orange:   #FF7A00
-Flare Gold:      #FFB347
-Eruption Red:    #FF4D36
-Corona Amber:    #FFC857
+- Hero text should be **uppercase** for maximum impact
+- Section headings use **sentence case** for readability
+- Body copy max-width: `65ch` for comfortable reading
+- Mono text only for data — never for prose
+- No font weights below 300 or above 700
+
+---
+
+## 5. Build Scope & Delivery
+
+### Sections to Build
+
+| # | Section | Purpose | Duration Estimate |
+|---|---|---|---|
+| 1 | **Hero** | First impression, cinematic impact | 3h |
+| 2 | **Scroll Story** | Signature 4-act interactive sequence | 4h |
+| 3 | **Mission Overview** | Explain Aditya-L1 clearly | 2h |
+| 4 | **Solar Flares Explainer** | Teach flare classes and meaning | 2.5h |
+| 5 | **Footer CTA** | Clean final impression | 1h |
+| — | **Polish & Deploy** | QA, responsive fixes, Vercel deploy | 2.5h |
+
+### Priority Escalation
+
+If time is constrained, sections should be built in this order:
+
+```
+1. Hero ─── Highest priority (makes or breaks first impression)
+2. Scroll Story ─── Signature experience (differentiator)
+3. Mission ─── Core educational content
+4. Flares ─── Secondary educational content
+5. Footer ─── Can be minimal if needed
+6. Polish ─── Only after all sections are functional
 ```
 
-### Scientific accents
+### What Is NOT in Scope (Sprint)
 
-```text
-Instrument Cyan: #55D6FF
-Telemetry Blue:  #4EA8DE
-Signal Violet:   #8B5CF6
+- Animations API platform (anime.js)
+- Payload / instrument detail pages
+- Telemetry data visualization
+- Image gallery or media viewer
+- Timeline/history section
+- Blog or article system
+- Backend API or database
+
+---
+
+## 6. Content Standards
+
+### Tone Guidelines
+
+Writing should be:
+
+```
+Concise · Scientific · Clear · Powerful
 ```
 
-### Usage ratio
+- **Concise:** Every sentence earns its place. No filler.
+- **Scientific:** Accurate terminology, no oversimplification that misleads.
+- **Clear:** A layperson should understand the core message.
+- **Powerful:** Use active voice. Strong verbs. Declarative statements.
 
-- Base neutrals: **80%**
-- Solar tones: **15%**
-- Cool scientific accents: **5%**
+### Example Content
 
----
-
-## 4. TYPOGRAPHY SYSTEM
-
-| Role | Font | Usage |
-|------|------|-------|
-| Display | **Space Grotesk** | Hero and section headings |
-| Body | **Inter** | Paragraphs and UI |
-| Mono | **JetBrains Mono** | Metrics, labels, data-like content |
-
-### Type scale
-
-```text
-Hero:      clamp(3.5rem, 8vw, 8rem)
-Section:   clamp(2rem, 4vw, 4.5rem)
-Body:      1rem / 1.6
-Mono:      0.875rem–1rem
-```
+> **Mission heading:** "Watching the Sun, Uninterrupted"
+>
+> **Body:** "Aditya-L1 positions seven scientific instruments at the Sun–Earth L1 point — 1.5 million kilometers from Earth — to observe dynamic solar activity with uninterrupted precision. From this vantage, the mission captures the full chain of solar events: from magnetic buildup on the surface to the eruption of flares and coronal mass ejections."
+>
+> **Flare explainer:** "Solar flares are intense localized bursts of electromagnetic radiation, driven by the sudden release of magnetic energy stored in the Sun's atmosphere. They are classified by their X-ray peak brightness — from B-class (minor) to X-class (major) — with each class representing a tenfold increase in energy."
 
 ---
 
-## 5. BUILD SCOPE
+## 7. Definition of Success
 
-### Sections to build
+By the end of the 15-hour build, all of the following must be true:
 
-| # | Section | Purpose |
-|---|---------|---------|
-| 1 | Hero | First impression, cinematic impact |
-| 2 | Mission Overview | Explain Aditya-L1 clearly |
-| 3 | Solar Flares Explainer | Teach flare classes and meaning |
-| 4 | Scroll Story | Signature interactive sequence |
-| 5 | Footer CTA | Clean final impression |
-
-### Build priorities
-
-1. **Hero must feel premium**
-2. **Scroll story must be memorable**
-3. **Mission and science sections must be clear**
-4. **Everything must be responsive**
-5. **Ship a polished demo**
+- [ ] Hero section feels premium, original, and visually arresting
+- [ ] Scroll story transitions smoothly through all 4 narrative acts
+- [ ] Mission and Flares sections are educationally clear and visually polished
+- [ ] Mobile layout holds up cleanly at 375px without horizontal overflow
+- [ ] `prefers-reduced-motion` is respected across all animations
+- [ ] `npm run build` passes with zero errors
+- [ ] Deployed to Vercel and stable on a live URL
 
 ---
 
-## 6. CONTENT TONE
+## 8. Delivery Target
 
-Writing should feel:
+A polished landing page that enables a viewer to confidently answer:
 
-```text
-concise · scientific · clear · powerful
-```
-
-### Example tone
-
-- Good: "Aditya-L1 positions solar instruments at the Sun–Earth L1 point to observe dynamic solar activity with uninterrupted precision."
-- Good: "Solar flares are intense localized bursts of electromagnetic radiation driven by magnetic energy release in the Sun's atmosphere."
+1. **What is Aditya-L1?** — India's first dedicated solar observatory at L1
+2. **Why do solar flares matter?** — They affect space weather, communications, and power grids
+3. **How does the mission observe solar activity?** — 7 instruments, continuous monitoring
+4. **Why does this project feel impressive?** — Cinematic narrative meets scientific rigor
 
 ---
 
-## 7. DEFINITION OF SUCCESS
-
-By the end of the build:
-
-- [ ] Hero feels premium and original
-- [ ] Scroll story transitions smoothly through all 4 acts
-- [ ] Mission and flares sections are clear and polished
-- [ ] Mobile layout holds up cleanly
-- [ ] Reduced motion is respected
-- [ ] Build is deployable and stable
-
----
-
-## 8. DELIVERY TARGET
-
-A polished landing page that helps a viewer understand:
-
-- What Aditya-L1 is
-- Why solar flares matter
-- How the mission observes solar activity
-- Why the project feels technically impressive
-
----
-
-*This is the working project plan for the build.*
+*This document is the single source of truth for the sprint build. All team members should reference it for scope, priorities, and design direction.*
