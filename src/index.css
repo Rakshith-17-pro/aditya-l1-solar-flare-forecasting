@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Custom animations and colors for solar look */
+  --color-solar-orange: #ff7b00;
+  --color-solar-gold: #ffb300;
+  --color-solar-red: #ff3d00;
+  --color-space-black: #050816;
+}
+
+/* Custom styles for canvas container and scroll transitions */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #050816;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050816;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff7b0033;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff7b0077;
+}
+
+/* Hide canvas outline focus */
+canvas {
+  outline: none;
+}
+
+/* Immersive UI Design Classes */
+.cinematic-bg {
+  background: radial-gradient(circle at 80% 20%, rgba(255, 123, 0, 0.12) 0%, transparent 60%),
+              radial-gradient(circle at 20% 80%, rgba(255, 61, 0, 0.04) 0%, transparent 50%);
+}
+
+.satellite-glow {
+  filter: drop-shadow(0 0 20px rgba(255, 179, 0, 0.35));
+}
+
+.hud-line {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+
+.glitch-text {
+  text-shadow: 2px 0 #ff3d00, -2px 0 #00f2ff;
+}
+
+.data-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.sun-glow {
+  background: radial-gradient(circle, #ff7b00 0%, #ff3d00 35%, transparent 70%);
+  filter: blur(65px);
+  opacity: 0.35;
+}
+
